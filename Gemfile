@@ -23,8 +23,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'rack-cors', :require => 'rack/cors' #for localhost acces for development
-
 gem 'acts-as-taggable-on', '~> 3.5.0'
 gem 'acts_as_follower', '~> 0.2.1'
 gem 'devise', '~> 4.2.0'
