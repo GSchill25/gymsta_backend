@@ -1,20 +1,20 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :find_article!
+  before_action :find_workout!
 
   def index
-    @comments = @article.comments.order(created_at: :desc)
+    @comments = @workout.comments.order(created_at: :desc)
   end
 
   def create
-    @comment = @article.comments.new(comment_params)
+    @comment = @workout.comments.new(comment_params)
     @comment.user = current_user
 
     render json: { errors: @comment.errors }, status: :unprocessable_entity unless @comment.save
   end
 
   def destroy
-    @comment = @article.comments.find(params[:id])
+    @comment = @workout.comments.find(params[:id])
 
     if @comment.user_id == @current_user_id
       @comment.destroy
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-  def find_article!
-    @article = Article.find_by_slug!(params[:article_slug])
+  def find_workout!
+    @workout = Workout.find_by_slug!(params[:workout_slug])
   end
 end

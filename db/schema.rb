@@ -16,40 +16,26 @@ ActiveRecord::Schema.define(version: 20160712061614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.string   "slug"
-    t.text     "body"
-    t.string   "description"
-    t.integer  "favorites_count"
-    t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
-
   create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.integer  "user_id"
-    t.integer  "article_id"
+    t.integer  "workout_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["workout_id"], name: "index_comments_on_workout_id", using: :btree
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "article_id"
+    t.integer  "workout_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "favorites", ["article_id"], name: "index_favorites_on_article_id", using: :btree
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
+  add_index "favorites", ["workout_id"], name: "index_favorites_on_workout_id", using: :btree
 
   create_table "follows", force: :cascade do |t|
     t.integer  "followable_id",                   null: false
@@ -106,4 +92,22 @@ ActiveRecord::Schema.define(version: 20160712061614) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "workouts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.string   "subtitle"
+    t.integer  "favorites_count"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "workouts", ["slug"], name: "index_workouts_on_slug", unique: true, using: :btree
+  add_index "workouts", ["user_id"], name: "index_workouts_on_user_id", using: :btree
+
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "workouts"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "workouts"
+  add_foreign_key "workouts", "users"
 end
