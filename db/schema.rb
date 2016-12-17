@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712061614) do
+ActiveRecord::Schema.define(version: 20161217005451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,21 @@ ActiveRecord::Schema.define(version: 20160712061614) do
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
   add_index "comments", ["workout_id"], name: "index_comments_on_workout_id", using: :btree
+
+  create_table "exercises", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.string   "sets"
+    t.string   "reps"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "workout_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "exercises", ["user_id"], name: "index_exercises_on_user_id", using: :btree
+  add_index "exercises", ["workout_id"], name: "index_exercises_on_workout_id", using: :btree
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
@@ -107,6 +122,8 @@ ActiveRecord::Schema.define(version: 20160712061614) do
 
   add_foreign_key "comments", "users"
   add_foreign_key "comments", "workouts"
+  add_foreign_key "exercises", "users"
+  add_foreign_key "exercises", "workouts"
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites", "workouts"
   add_foreign_key "workouts", "users"
