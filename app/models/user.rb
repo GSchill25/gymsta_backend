@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :articles, dependent: :destroy
+  has_many :workouts, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :exercises, dependent: :destroy
@@ -24,17 +24,17 @@ class User < ActiveRecord::Base
                Rails.application.secrets.secret_key_base)
   end
 
-  def favorite(article)
-    favorites.find_or_create_by(article: article)
+  def favorite(workout)
+    favorites.find_or_create_by(workout: workout)
   end
 
-  def unfavorite(article)
-    favorites.where(article: article).destroy_all
+  def unfavorite(workout)
+    favorites.where(workout: workout).destroy_all
 
     article.reload
   end
 
-  def favorited?(article)
-    favorites.find_by(article_id: article.id).present?
+  def favorited?(workout)
+    favorites.find_by(workout_id: workout.id).present?
   end
 end
