@@ -10,9 +10,10 @@ Rails.application.routes.draw do
       resource :follow, only: [:create, :destroy]
     end
 
-    resources :articles, param: :slug, except: [:edit, :new] do
+    resources :workouts, param: :slug, except: [:edit, :new] do
       resource :favorite, only: [:create, :destroy]
       resources :comments, only: [:create, :index, :destroy]
+      resources :exercises, only: [:create, :index, :update, :destroy]
       get :feed, on: :collection
     end
 
