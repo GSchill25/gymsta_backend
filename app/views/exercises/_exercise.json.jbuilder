@@ -1,2 +1,2 @@
-json.(exercise, :id, :created_at, :updated_at, :type, :name, :sets, :reps, :description)
+json.(exercise, :id, :created_at, :updated_at, :etype, :name, :sets, :reps, :description)
 json.author exercise.user, partial: 'profiles/profile', as: :user

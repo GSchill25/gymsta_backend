@@ -39,7 +39,7 @@ class ExercisesController < ApplicationController
   private
 
   def exercise_params
-    params.require(:exercise).permit(:type, :name, :sets, :reps, :description)
+    params.require(:exercise).permit(:etype, :name, :sets, :reps, :description)
   end
 
   def find_workout!
