@@ -35,4 +35,21 @@ class Workout < ActiveRecord::Base
     end
     eTypeCounter
   end
+
+  def exercise_breakdown
+    eTypeCounter = [{ "name": "Warmup", "value": 0 },
+                    { "name": "Stretch", "value": 0 },
+                    { "name": "Run", "value": 0 },
+                    { "name": "Lift", "value": 0 },
+                    { "name": "Other", "value": 0 }
+                   ]
+    self.exercises.each do |e|
+      eTypeCounter.each do |et|
+        if(et[:name] == e.etype)
+          et[:value] += 1
+        end
+      end
+    end
+    eTypeCounter
+  end
 end
