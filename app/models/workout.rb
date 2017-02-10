@@ -21,7 +21,7 @@ class Workout < ActiveRecord::Base
 
   def self.count_exercise_types(exercises) #eTypes should probably go into a config file
     eTypeCounter = [{ "name": "Warmup", "value": 0 },
-                    { "name": "Strech", "value": 0 },
+                    { "name": "Stretch", "value": 0 },
                     { "name": "Run", "value": 0 },
                     { "name": "Lift", "value": 0 },
                     { "name": "Other", "value": 0 }
