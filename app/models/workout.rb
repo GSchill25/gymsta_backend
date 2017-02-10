@@ -18,4 +18,21 @@ class Workout < ActiveRecord::Base
   before_validation do
     self.slug ||= "#{title.to_s.parameterize}-#{rand(36**6).to_s(36)}"
   end
+
+  def self.count_exercise_types(exercises) #eTypes should probably go into a config file
+    eTypeCounter = [{ "name": "Warmup", "value": 0 },
+                    { "name": "Strech", "value": 0 },
+                    { "name": "Run", "value": 0 },
+                    { "name": "Lift", "value": 0 },
+                    { "name": "Other", "value": 0 }
+                   ]
+    exercises.each do |e|
+      eTypeCounter.each do |et|
+        if(et[:name] == e.etype)
+          et[:value] += 1
+        end
+      end
+    end
+    eTypeCounter
+  end
 end

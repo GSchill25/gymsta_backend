@@ -4,6 +4,7 @@ class ExercisesController < ApplicationController
 
   def index
     @exercises = @workout.exercises.order(created_at: :desc)
+    @exercise_count = Workout.count_exercise_types(@exercises)
   end
 
   def create
