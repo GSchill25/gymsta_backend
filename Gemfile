@@ -31,6 +31,8 @@ gem 'rack-cors', '~> 0.4.0'
 gem 'puma'
 gem 'rails_12factor', group: :production
 
+gem 'newrelic_rpm', group: :production
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
